@@ -79,6 +79,13 @@ namespace ConsoleUI
             Console.WriteLine("***GetById***");
             Car cars = carManager.GetById(2);
             Console.WriteLine(cars.CarId+" "+cars.DailyPrice);
+
+
+            Console.WriteLine("*******Join-Test********");
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(car.CarName+" "+car.BrandName+" "+car.ColorName+" "+car.DailyPrice);
+            }
             
             
         }
