@@ -6,6 +6,11 @@ namespace Business.Constans
 {
     public static class Messages
     {
+        public static string RentalAdded = "Rental Added";
+        public static string RentalDeleted = "Rental Deleted";
+        public static string RentalUpdated = "Rental Updated";
+        public static string RentalListed = "Rental Listed";
+
         public static string BrandAdded = "Brand Added";
         public static string BrandDeleted = "Brand Deleted";
         public static string BrandUpdated = "Brand Updated";
@@ -20,6 +25,16 @@ namespace Business.Constans
         public static string CarDeleted = "Car Deleted";
         public static string CarUpdated = "Car Updated";
         public static string CarListed = "Car  Listed";
+
+        public static string UserAdded = "User Added";
+        public static string UserDeleted = "User Deleted";
+        public static string UserUpdated = "User Update";
+        public static string UserListed = "User Listed";
+
+        public static string CustomerAdded = "Customer Added";
+        public static string CustomerDeleted = "Customer Deleted";
+        public static string CustomerUpdated = "Customer Updated";
+        public static string CustomerListed = "Customer Listed";
 
 
         public static string NameInvalid = "İsim geçersiz";

@@ -10,10 +10,91 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
-            BrandTest();
-            ColorTest();
+            //CarTest();
+            //BrandTest();
+            //ColorTest();
+            //UserTest();
+            //CustomerTest();
+            //RentalTest();
+            RentalDeleteTest();
+            //RentalUpdateTest();
+            //RentalGetAll();
         }
+
+        private static void RentalGetAll()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine(rental.CarId+"//"+rental.CustomerId+"//"+rental.RentDate.ToString());
+            }
+        }
+
+        private static void RentalUpdateTest()
+        {
+            RentalManager rentalsManager = new RentalManager(new EfRentalDal());
+            Rental updateRentals = new Rental { Id = 3, CarId = 2, CustomerId = 2, RentDate = DateTime.Now.Date, ReturnDate = DateTime.Now };
+            var result = rentalsManager.Update(updateRentals);
+            if (result.Success == false)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void RentalTest()
+        {
+            Console.WriteLine("Rental-Test");
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental = new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Today, ReturnDate = DateTime.Now };
+            var result = rentalManager.Add(rental);
+            if (result.Success == false)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
+        }
+
+        private static void RentalDeleteTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental = new Rental {Id=3, CarId = 2, CustomerId = 2, RentDate = DateTime.Today };
+            var resultdelete = rentalManager.Delete(rental);
+            if (resultdelete.Success == false)
+            {
+
+                Console.WriteLine(resultdelete.Message);
+            }
+            else
+            {
+                Console.WriteLine(resultdelete.Message);
+            }
+        }
+        private static void CustomerTest()
+        {
+            Console.WriteLine("Customer-Test");
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            Customer customer = new Customer { UserId = 1, CompanyName = "Toyoto" };
+            var result = customerManager.Add(customer);
+            Console.WriteLine(result.Success);
+
+        }
+
+        private static void UserTest()
+        {
+            Console.WriteLine("*****User-Test*****");
+
+        }
+
+
 
         private static void BrandTest()
         {
