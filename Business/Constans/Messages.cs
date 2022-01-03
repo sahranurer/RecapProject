@@ -40,7 +40,6 @@ namespace Business.Constans
         public static string NameInvalid = "İsim geçersiz";
 
         public static string MaintenanceTime = "Sistem bakımda";
-
-
+        public static string PhotoLimitExceeded = "En fazla 5 fotograf olur.";
     }
 }
