@@ -32,28 +32,55 @@ namespace Business.Concrete
             }
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.Date = DateTime.Now;
+            return new SuccessResult("Resim başarıyla yüklendi");
         }
 
         public IResult Delete(CarImage carImage)
         {
-            throw new NotImplementedException();
+            _fileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
+            _carImagesDal.Delete(carImage);
+            return new SuccessResult();
         }
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CarImage>>(_carImagesDal.GetAll());
         }
 
         public IDataResult<List<CarImage>> GetbyCarId(int id)
         {
-            throw new NotImplementedException();
+            var result = BusinessRules.Run(CheckCarImage(id));
+            if (result != null)
+            {
+                return new ErrorDataResult<List<CarImage>>(GetDefaultImage(id).Data);
+            }
+            return new SuccessDataResult<List<CarImage>>(_carImagesDal.GetAll(c => c.CarId == id));
         }
+
+       
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            throw new NotImplementedException();
+            carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
+            _carImagesDal.Update(carImage);
+            return new SuccessResult();
         }
+        private IDataResult<List<CarImage>> GetDefaultImage(int carId)
+        {
 
+            List<CarImage> carImage = new List<CarImage>();
+            carImage.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "DefaultImage.jpg" });
+            return new SuccessDataResult<List<CarImage>>(carImage);
+        }
+        private IResult CheckCarImage(int carId)
+        {
+            var result = _carImagesDal.GetAll(c => c.CarId == carId).Count;
+            if (result > 0)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult();
+        }
         private IResult CheckCarPictureLimit(int CarId)
         {
             var results = _carImagesDal.GetAll(c => c.CarId == CarId).Count;
@@ -64,6 +91,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-
+        public IDataResult<CarImage> GetByImageId(int imageId)
+        {
+            return new SuccessDataResult<CarImage>(_carImagesDal.Get(c => c.ID == imageId));
+        }
     }
 }

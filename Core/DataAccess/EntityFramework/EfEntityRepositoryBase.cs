@@ -45,7 +45,7 @@ namespace Core.DataAccess.EntitiyFramework
             using (TContext recapContext = new TContext())
             {
                 return filter == null ? recapContext.Set<TEntity>().ToList() 
-                    : recapContext.Set<TEntity>().Where(filter).ToList();
+                                      : recapContext.Set<TEntity>().Where(filter).ToList();
             }
         }
 
